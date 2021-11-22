@@ -1,5 +1,6 @@
 import time, csv
 import threading
+import paho.mqtt.client as mqtt
 from grove import motor
 from grove.grove_servo import GroveServo
 from grove.grove_ultrasonic_ranger import GroveUltrasonicRanger
@@ -20,16 +21,16 @@ def on_connect(client,userdata,flags,rc):
     else:
         print("Coonection failed")
 connected=False
-broker_address="mqtt.impcloud.org"
-port=8883
+
+broker_address="demo.thingsboard.io"
+port=1883
 user="imp"
 password="testmqtt"
 
-client=mqttclient.Client("PI")
-client.tls_set()
-client.username_pw_set(user,password=password)
+client = mqtt.Client()
+client.username_pw_set("XhLJuBoOOObGp45JM2nQ")
 client.on_connect=on_connect
-client.connect(broker_address,port=port)
+client.connect(broker_address,port)
 client.loop_start()
 while connected!=True:
     time.sleep(0.2)
@@ -68,7 +69,7 @@ def main():
     counter_max = 10
     counter = 0
     time_step = 0.1
-    with open('milleston2/data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
+    with open('data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['time', 'angle', 'distance' ])
     while True:
@@ -102,7 +103,7 @@ def main():
         
         
         print(distance)
-        with open('milleston2/data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
+        with open('data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([time_0, angle[i], distance ])
             x={
@@ -112,7 +113,7 @@ def main():
                 }
             y=json.dumps(x)
     #         client.publish("mqtt/mil1",str([time_0, angle[i], distance ]))
-            client.publish("mqtt/mil1",y)
+            client.publish("v1/devices/me/telemetry",y)
             
 
  
