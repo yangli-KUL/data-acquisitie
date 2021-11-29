@@ -68,7 +68,7 @@ def main():
     counter_max = 10
     counter = 0
     time_step = 0.1
-    with open('milleston2/data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
+    with open('data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['time', 'angle', 'distance' ])
     while True:
@@ -102,7 +102,7 @@ def main():
         
         
         print(distance)
-        with open('milleston2/data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
+        with open('data/intelligent_data.csv', 'a', encoding='UTF8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([time_0, angle[i], distance ])
             x={
