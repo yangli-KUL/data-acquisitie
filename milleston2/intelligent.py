@@ -9,6 +9,7 @@ from numpy.lib.function_base import angle
 import buzz
 import motor
 import json
+import ssl
 
 import paho.mqtt.client as mqttclient
 import time
@@ -26,7 +27,7 @@ user="imp"
 password="testmqtt"
 
 client=mqttclient.Client("PI")
-client.tls_set()
+client.tls_set(cert_reqs=ssl.CERT_NONE)
 client.username_pw_set(user,password=password)
 client.on_connect=on_connect
 client.connect(broker_address,port=port)
@@ -52,8 +53,8 @@ class buzzer(threading.Thread):
 
 Ultrasonic = GroveUltrasonicRanger(5)
 step = 1
-init_angle = 40
-end_angle = 160
+init_angle = 0
+end_angle = 180
 step_num = round((end_angle - init_angle)/step)
 angle = [i*step+init_angle for i in range(step_num)]
 ledbtn = GroveLedButton(16)

@@ -114,6 +114,14 @@ def main():
     #         client.publish("mqtt/mil1",str([time_0, angle[i], distance ]))
             client.publish("mqtt/mil1",y)
             
+            z={
+                "time":time_0,
+                "angle":angle[i]+10,
+                "distance":distance
+                }
+            w=json.dumps(z)
+            client.publish("mqtt/mil2",w)
+            
 
  
     # ledbtn = GroveLedButto

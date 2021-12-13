@@ -19,7 +19,7 @@ def on_connect(client,userdata,flags,rc):
         global connected
         connected=True
     else:
-        print("Coonection failed")
+        print("Connection failed")
 connected=False
 
 broker_address="demo.thingsboard.io"
